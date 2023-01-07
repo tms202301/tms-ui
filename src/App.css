@@ -34,7 +34,34 @@
 .contentcls {
   width: 80%;
 }
-
+.primary-menu {
+  background-color: #323233;
+  color: #fff;
+  font-size: 16px;
+  height: 100vh;
+  margin-block-start: 0em !important;
+  margin-block-end: 0em !important;
+  padding-inline-start: 0px !important;
+}
+.primary-menu li {
+  list-style-type: none;
+  position: relative;
+  cursor: pointer;
+  padding: 12px;
+}
+.primary-menu li:hover {
+  background-color: #5c5c5e;
+}
+.logoCls {
+  background-color: #fff;
+  list-style-type: none;
+  padding-inline-start: 0px !important;
+  margin-block-start: 0em !important;
+  margin-block-end: 0em !important;
+}
+.logoCls li {
+  padding: 12px;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

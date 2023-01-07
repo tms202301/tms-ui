@@ -6,12 +6,8 @@ import MainContent from './main/MainContent';
 function App() {
   return (
     <div className="App">
-      <div className='menucls'>
-        <LeftMenu />
-      </div>
-      <div className='contentcls'>
-        <MainContent />
-      </div>
+      <LeftMenu />
+      <MainContent />
     </div>
   );
 }

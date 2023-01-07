@@ -9,8 +9,8 @@ class MainContent extends Component {
     }
     render() {
         return(
-            <div>
-                Welcome to Content section
+            <div className="contentcls">
+                Content section
             </div>
         )
     }
