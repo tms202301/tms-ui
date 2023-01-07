@@ -1,10 +1,17 @@
 //import logo from './logo.svg';
 import './App.css';
+import Menu from './main/Menu';
+import MainContent from './main/MainContent';
 
 function App() {
   return (
     <div className="App">
-      <h1>Welcome to TMS</h1>
+      <div className='menucls'>
+        <Menu />
+      </div>
+      <div className='contentcls'>
+        <MainContent />
+      </div>
     </div>
   );
 }
