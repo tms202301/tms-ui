@@ -1,13 +1,13 @@
 //import logo from './logo.svg';
 import './App.css';
-import Menu from './main/Menu';
+import LeftMenu from './main/LeftMenu.js';
 import MainContent from './main/MainContent';
 
 function App() {
   return (
     <div className="App">
       <div className='menucls'>
-        <Menu />
+        <LeftMenu />
       </div>
       <div className='contentcls'>
         <MainContent />
