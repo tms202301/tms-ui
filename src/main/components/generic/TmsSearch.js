@@ -12,7 +12,7 @@ class TmsSearch extends Component {
         let placeHolder = this.props.placeHolder != undefined ? this.props.placeHolder : "Search..";
         return(
             <div style={{float: floatValue}}>
-                <input className="search-tms" type="text" placeHolder={placeHolder} />
+                <input className="search-tms" type="text" placeholder={placeHolder} />
             </div>
         )
     }
