@@ -28,29 +28,55 @@
   color: #61dafb;
 }
 .menucls {
-  width: 20%;
+  width: 14%;
   float: left;
 }
 .contentcls {
-  width: 80%;
+  width: 84.5%;
+  float: left;
 }
 .primary-menu {
   background-color: #323233;
   color: #fff;
-  font-size: 16px;
+  font-size: 18px;
   height: 100vh;
   margin-block-start: 0em !important;
   margin-block-end: 0em !important;
   padding-inline-start: 0px !important;
+  border: 2px solid #323233;
 }
 .primary-menu li {
   list-style-type: none;
   position: relative;
   cursor: pointer;
-  padding: 12px;
+  padding: 15px;
 }
 .primary-menu li:hover {
   background-color: #5c5c5e;
+}
+.menu-icon-cls {
+  float: left;
+  margin-right: 6px;
+}
+.menu-icon-cls img {
+  height: 25px;
+}
+.search-tms {
+  width: 300px;
+  padding: 6px;
+  border-radius: 20px;
+  float: right;
+}
+.button-tms {
+  padding: 6px;
+  border-radius: 4px;
+}
+.home-header-cls {
+  background-color: #0f9fea;
+  width: 100%;
+  float: left;
+  padding: 10px;
+  height: 58px;
 }
 .logoCls {
   background-color: #fff;
@@ -58,9 +84,15 @@
   padding-inline-start: 0px !important;
   margin-block-start: 0em !important;
   margin-block-end: 0em !important;
+  border: 2px solid #323233;
+}
+.cmp-main-cls {
+  width: 100%;
+  float: left;
 }
 .logoCls li {
-  padding: 12px;
+  padding: 3px;
+  margin-left: 47px;
 }
 @keyframes App-logo-spin {
   from {

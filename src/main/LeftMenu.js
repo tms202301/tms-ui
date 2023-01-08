@@ -1,4 +1,9 @@
 import { Component } from "react";
+import HomeIcon from './images/Home-Icon.png';
+import TournamentIcon from './images/Tournament-Icon.png';
+import PlayersIcon from './images/Players-Icon.png';
+import ContactIcon from './images/Contact-Icon.png';
+import LogoIcon from './images/logo-black.png';
 
 class LeftMenu extends Component {
     constructor(props) {
@@ -11,14 +16,31 @@ class LeftMenu extends Component {
         return(
             <div className="menucls">
                 <ul className="logoCls">
-                    <li>TMS</li>
+                    <li>
+                        <span><img src={LogoIcon} /></span>
+                    </li>
                 </ul>
                 <ul className="primary-menu">
-                    <li>Home</li>
-                    <li>Tournaments</li>
-                    <li>Players</li>
-                    <li>Leagues</li>
-                    <li>Contact</li>
+                    <li>
+                        <span className="menu-icon-cls"><img src={HomeIcon} /></span>
+                        <span>Home</span>
+                    </li>
+                    <li>
+                        <span className="menu-icon-cls"><img src={TournamentIcon} /></span>
+                        <span>Tournaments</span>
+                    </li>
+                    <li>
+                        <span className="menu-icon-cls"><img src={PlayersIcon} /></span>
+                        <span>Players</span>
+                    </li>
+                    <li>
+                        <span className="menu-icon-cls"><img src={TournamentIcon} /></span>
+                        <span>Leagues</span>
+                    </li>
+                    <li>
+                        <span className="menu-icon-cls"><img src={ContactIcon} /></span>
+                        <span>Contact</span>
+                    </li>
                 </ul>
             </div>
         )

@@ -1,4 +1,5 @@
 import { Component } from "react";
+import Home from './components/Home';
 
 class MainContent extends Component {
     constructor(props) {
@@ -10,7 +11,7 @@ class MainContent extends Component {
     render() {
         return(
             <div className="contentcls">
-                Content section
+                <Home />
             </div>
         )
     }
