@@ -6,7 +6,7 @@ class TmsSpacer extends Component {
         this.state ={}
     }
     render() {
-        let floatValue = this.props.align != undefined ? this.props.align : "left";
+        let floatValue = this.props.align !== undefined ? this.props.align : "left";
         return(
             <div style={{float: floatValue, padding: "4px"}}>
 

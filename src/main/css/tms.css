@@ -75,7 +75,7 @@
   .cmp-main-cls {
     width: 100%;
     float: left;
-    margin-top: 4px;
+    margin-bottom: 4px;
   }
   .logoCls li {
     padding: 3px;
@@ -119,4 +119,11 @@
     background-color: white;
     z-index: 1002;
     overflow: auto;
+  }
+  .full-name-cls {
+    width: 31%;
+    float: left;
+    color: #fff;
+    font-weight: 700;
+    font-size: 28px;
   }

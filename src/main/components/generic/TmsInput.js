@@ -8,11 +8,11 @@ class TmsInput extends Component {
         }
     }
     render() {
-        let floatValue = this.props.align != undefined ? this.props.align : "left";
-        let value = this.props.value != undefined ? this.props.value : "";
-        let label = this.props.label != undefined ? this.props.label : "";
-        let width = this.props.width != undefined ? this.props.width : "250";
-        let labelWidth = this.props.labelWidth != undefined ? this.props.labelWidth : width;
+        let floatValue = this.props.align !== undefined ? this.props.align : "left";
+        let value = this.props.value !== undefined ? this.props.value : "";
+        let label = this.props.label !== undefined ? this.props.label : "";
+        let width = this.props.width !== undefined ? this.props.width : "250";
+        let labelWidth = this.props.labelWidth !== undefined ? this.props.labelWidth : width;
         return(
             <div className="cmp-main-cls" style={{float: floatValue}}>
                 <div style={{width: labelWidth+"px"}} className="input-label-cls">{label}</div>
