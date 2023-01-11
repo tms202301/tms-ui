@@ -2,14 +2,22 @@
 import './App.css';
 import './main/css/tms.css';
 import LeftMenu from './main/LeftMenu.js';
-import MainContent from './main/MainContent';
+import HeaderContent from './main/HeaderContent';
+import Home from './main/components/Home';
+import Tournament from './main/components/Tournaments';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <LeftMenu />
-      <MainContent />
-    </div>
+    <BrowserRouter>
+      <HeaderContent />
+      <Routes>
+        <Route path="/" element={<LeftMenu />}>
+        <Route index element={<Home />} />
+        <Route path="/tournament" element={<Tournament />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

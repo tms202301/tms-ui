@@ -1,19 +1,19 @@
 import { Component } from "react";
-import Home from './components/Home';
 
-class MainContent extends Component {
+class Tournament extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+           
         }
     }
+    
     render() {
         return(
-            <div className="contentcls">
-                <Home />
+            <div className="cmp-main-cls">
+                <h1>Welcome to Tournament page</h1>
             </div>
         )
     }
 }
-export default MainContent;
+export default Tournament;
