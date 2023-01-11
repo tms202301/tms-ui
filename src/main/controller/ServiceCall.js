@@ -26,6 +26,12 @@ export async function loginRequest(req) {
     let endpoint = EndPoints.TMS_LOGIN;
     let request = { userName: 'sreeni', userSec: "passwordf" };
     let response = await postAction(endpoint, request);
-    console.log(response);
     Dispatch.dispatch(TmsActionTypes.LOGIN_ACTION, response);
+}
+
+export async function findTournametList(req) {
+    let endpoint = EndPoints.TOURNAMENT_LIST;
+    let request = req;
+    let response = await postAction(endpoint, request);
+    Dispatch.dispatch(TmsActionTypes.TOURNAMENT_LIST, response);
 }

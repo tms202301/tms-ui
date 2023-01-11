@@ -76,11 +76,15 @@
     margin-block-end: 0em !important;
     border: 2px solid #323233;
   }
-  .cmp-main-cls {
-    width: 84%;
+  .tn-main-cls {
+    width: 82%;
     float: left;
-    margin-bottom: 4px;
-    margin-left: 4px;
+    margin: 10px 20px 20px 20px;
+  }
+  .cmp-main-cls {
+    width: 90%;
+    float: left;
+    margin: 4px;
   }
   .logoCls li {
     padding: 3px;
@@ -132,4 +136,35 @@
     font-weight: 700;
     font-size: 28px;
     padding-left: 4px;
+  }
+  .tm-div-cls {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    width: 100%;
+  }
+  .tm-div-cls div {
+    width: 100%;
+    padding: 5px;
+  }
+  .tn-label-cls {
+    font-weight: 600;
+    margin-right: 2px;
+  }
+  .tn-label-cls a {
+    text-decoration: none;
+  }
+  .value-span-cls {
+    font-size: 13px;
+  }
+  .span-speraton-cls {
+    border-right: 1px solid rgb(126, 125, 125);
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .title-header-cls {
+    margin-bottom: 15px;
+    font-size: 25px;
+  }
+  .tn-logo-cls {
+    margin-right: 5px;
   }

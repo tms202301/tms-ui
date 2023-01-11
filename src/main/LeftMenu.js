@@ -5,6 +5,7 @@ import PlayersIcon from './images/Players-Icon.png';
 import ContactIcon from './images/Contact-Icon.png';
 import LogoIcon from './images/logo-black.png';
 import { Outlet, Link } from "react-router-dom";
+import * as UiPaths from './controller/UiPaths';
 
 class LeftMenu extends Component {
     constructor(props) {
@@ -29,7 +30,7 @@ class LeftMenu extends Component {
                         </li>
                         <li>
                             <span className="menu-icon-cls"><img src={TournamentIcon} /></span>
-                            <span><Link to="/tournament">Tournament</Link></span>
+                            <span><Link to={UiPaths.TOURNAMENT_PATH}>Tournament</Link></span>
                         </li>
                         <li>
                             <span className="menu-icon-cls"><img src={PlayersIcon} /></span>
