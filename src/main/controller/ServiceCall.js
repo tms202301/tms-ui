@@ -22,6 +22,39 @@ async function postAction(endpoint, request) {
     return data;
 }
 
+async function getAction(endpoint) {
+    let headersObj = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+    }
+    const requestOptions = {
+        method: 'GET',
+        headers: headersObj,
+        mode: 'cors'
+    };
+    const response = await fetch(endpoint, requestOptions);
+    const data = await response.json();
+    return data;
+}
+
+async function postMultipartAction(endpoint, formData) {
+    let headersObj = {
+        'Content-Type': 'multipart/form-data',
+        'Access-Control-Allow-Origin': '*'
+    }
+    console.log(formData);
+    const requestOptions = {
+        method: 'POST',
+        headers: headersObj,
+        mode: 'cors',
+        body: formData
+    };
+    const response = await fetch(endpoint, requestOptions);
+    const data = await response.json();
+    return data;
+}
+
 export async function loginRequest(req) {
     let endpoint = EndPoints.TMS_LOGIN;
     let request = { userName: 'sreeni', userSec: "passwordf" };
@@ -31,6 +64,27 @@ export async function loginRequest(req) {
 
 export async function findTournametList(req) {
     let endpoint = EndPoints.TOURNAMENT_LIST;
+    let request = req;
+    let response = await postAction(endpoint, request);
+    Dispatch.dispatch(TmsActionTypes.TOURNAMENT_LIST, response);
+}
+
+export async function findTournament(recordId) {
+    let endpoint = EndPoints.TOURNAMENT_FIND;
+    endpoint += '?recordId='+recordId;
+    let response = await getAction(endpoint);
+    Dispatch.dispatch(TmsActionTypes.TOURNAMENT_FIND, response);
+}
+
+export async function uploadTournamentLogo(file, recordId) {
+    let endpoint = EndPoints.TOURNAMENT_UPLOAD_LOG;
+    endpoint += '?recordId='+recordId;
+    let response = await postMultipartAction(endpoint, file);
+    Dispatch.dispatch(TmsActionTypes.TOURNAMENT_LIST, response);
+}
+
+export async function addTournamet(req) {
+    let endpoint = EndPoints.TOURNAMENT_ADD;
     let request = req;
     let response = await postAction(endpoint, request);
     Dispatch.dispatch(TmsActionTypes.TOURNAMENT_LIST, response);
