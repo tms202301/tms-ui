@@ -8,6 +8,7 @@ import Spacer from './generic/TmsSpacer';
 import TournamentStore from '../../stores/TournamentStore';
 import * as ServiceCall from '../controller/ServiceCall';
 import ActionTypes from '../../actions/TmsActionTypes';
+import * as UiPaths from '../controller/UiPaths';
 
 const tnName = 'name';
 const tnVenu = 'venue';
@@ -58,16 +59,14 @@ class TournamentCreate extends Component {
     }
     componentDidMount() {
         let recordId = sessionStorage.getItem("tnRecordId");
+        TournamentStore.on("change", this.fetchData);
         if(recordId !== null && recordId !== undefined && Number(recordId) !== 0) {
-            TournamentStore.on("change", this.fetchData);
             ServiceCall.findTournament(Number(recordId));
         }
     } 
     componentWillUnmount() {
         let recordId = sessionStorage.getItem("tnRecordId");
-        if(recordId !== null && recordId !== undefined && Number(recordId) !== 0) {
-            TournamentStore.removeListener("change", this.fetchData);
-        }
+        TournamentStore.removeListener("change", this.fetchData);
     }
     fetchData() {
         let resData = TournamentStore.getTournamentDetails();
@@ -100,6 +99,9 @@ class TournamentCreate extends Component {
                 tnTypeObj: tnTypeObj
             });
             
+        }
+        if(TournamentStore.isTnSaved() === true) {
+            this.props.history.push(UiPaths.TOURNAMENT_PATH);
         }
     }
     changeTextField(event, type) {
@@ -155,7 +157,7 @@ class TournamentCreate extends Component {
         ServiceCall.addTournamet(request);
     }
     onCancelAction() {
-        alert('Cancel');
+        this.props.history.push(UiPaths.TOURNAMENT_PATH);
     }
     render() {
         return(

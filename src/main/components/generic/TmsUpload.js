@@ -1,10 +1,4 @@
 import { Component } from "react";
-import { Uploader } from "uploader";
-import { UploadButton } from "react-uploader";
-
-const uploader = Uploader({
-  apiKey: "free" 
-});
 
 class TmsUpload extends Component {
     constructor(props) {

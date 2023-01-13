@@ -7,9 +7,8 @@ import LeftMenu from './main/LeftMenu.js';
 import HeaderContent from './main/HeaderContent';
 import Home from './main/components/Home';
 import Tournament from './main/components/Tournaments';
-import { BrowserRouter as Router,Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router,Switch, Route } from "react-router-dom";
 import * as UiPaths from './main/controller/UiPaths';
-import TmLogin from './main/components/TmsLogin';
 import TournamentCreate from './main/components/TournamentCreate';
 
 
@@ -19,11 +18,11 @@ function App() {
           <div className="App">
           <LeftMenu /> 
           <HeaderContent />
-          <Routes>  
-                <Route exact path='/' element={<Home />}></Route>  
-                <Route exact path={UiPaths.TOURNAMENT_CREATE_PATH} element={<TournamentCreate />}></Route>  
-                <Route exact path={UiPaths.TOURNAMENT_PATH} element={<Tournament />}></Route>  
-        </Routes>  
+          <Switch>  
+                <Route exact path='/' component={Home}></Route>  
+                <Route exact path={UiPaths.TOURNAMENT_CREATE_PATH} component={TournamentCreate}></Route>  
+                <Route exact path={UiPaths.TOURNAMENT_PATH} component={Tournament}></Route>  
+        </Switch>  
           </div>  
        </Router>
   );

@@ -5,6 +5,7 @@ const CHANGE_EVENT = "change";
 let tournaMentList = {};
 let actionType = "";
 let tournametDetails = {};
+let tnSaved = false;
 
 class TournamentStore extends EventEmitter {
     emitChange() {
@@ -19,6 +20,9 @@ class TournamentStore extends EventEmitter {
     getTournamentDetails() {
         return tournametDetails;
     }
+    isTnSaved() {
+        return tnSaved;
+    }
 }
 const store = new TournamentStore();
 dispatcher.register((action) => {
@@ -31,6 +35,12 @@ dispatcher.register((action) => {
         case TmsActionTypes.TOURNAMENT_FIND:
             tournametDetails = action.payLoad;
             actionType = action.actionType;
+            store.emitChange();
+            break;
+        case TmsActionTypes.TOURNAMENT_ADD:
+            tournametDetails = action.payLoad;
+            actionType = action.actionType;
+            tnSaved = true;
             store.emitChange();
             break;
         default:

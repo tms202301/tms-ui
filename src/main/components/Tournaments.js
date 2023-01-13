@@ -37,7 +37,7 @@ class Tournament extends Component {
     }
     onClickCreateBtn() {
         sessionStorage.setItem('tnRecordId', '0');
-        window.location.href = UiPaths.TOURNAMENT_CREATE_PATH;
+        this.props.history.push(UiPaths.TOURNAMENT_CREATE_PATH);
     }
     showLogoPop(event, recordId) {
         this.setState({showLoginPop: !this.state.showLoginPop, editedRecord: recordId});

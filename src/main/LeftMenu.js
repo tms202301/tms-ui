@@ -4,7 +4,7 @@ import TournamentIcon from './images/Tournament-Icon.png';
 import PlayersIcon from './images/Players-Icon.png';
 import ContactIcon from './images/Contact-Icon.png';
 import LogoIcon from './images/logo-black.png';
-import { Outlet, Link } from "react-router-dom";
+import {  Link, withRouter } from "react-router-dom";
 import * as UiPaths from './controller/UiPaths';
 
 class LeftMenu extends Component {
@@ -46,10 +46,9 @@ class LeftMenu extends Component {
                         </li>
                     </ul>
                 </nav>
-                <Outlet />
             </div>
         )
     }
        
 }
-export default LeftMenu;
+export default withRouter(LeftMenu);

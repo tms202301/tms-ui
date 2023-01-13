@@ -87,5 +87,5 @@ export async function addTournamet(req) {
     let endpoint = EndPoints.TOURNAMENT_ADD;
     let request = req;
     let response = await postAction(endpoint, request);
-    Dispatch.dispatch(TmsActionTypes.TOURNAMENT_LIST, response);
+    Dispatch.dispatch(TmsActionTypes.TOURNAMENT_ADD, response);
 }
