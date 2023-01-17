@@ -39,14 +39,14 @@ async function getAction(endpoint) {
 }
 
 async function postMultipartAction(endpoint, formData) {
-    let headersObj = {
+   /*let headersObj = {
         'Content-Type': 'multipart/form-data',
         'Access-Control-Allow-Origin': '*'
-    }
+    }*/
     console.log(formData);
     const requestOptions = {
         method: 'POST',
-        headers: headersObj,
+      //  headers: headersObj,
         mode: 'cors',
         body: formData
     };
