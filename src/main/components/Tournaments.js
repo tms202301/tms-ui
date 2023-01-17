@@ -4,8 +4,10 @@ import * as ServiceCall from '../controller/ServiceCall';
 import TmsButton from './generic/TmsButton';
 import FileComp from './generic/TmsUpload';
 import Spacer from './generic/TmsSpacer';
-import UploadLogo from '../../main/images/Upload_Logo.png'
+import UploadLogo from '../../main/images/Upload_Logo.png';
+import TrashIcon from '../../main/images/Trash.png';
 import * as UiPaths from '../controller/UiPaths';
+import * as TmsUtils from '../utils/TmsUtils';
 
 class Tournament extends Component {
     constructor(props) {
@@ -21,6 +23,7 @@ class Tournament extends Component {
         this.showLogoPop = this.showLogoPop.bind(this);
         this.onLogoSelect = this.onLogoSelect.bind(this);
         this.onLogoSave = this.onLogoSave.bind(this);
+        this.deleteTnAction = this.deleteTnAction.bind(this);
     }
     componentDidMount() {
         TournamentStore.on("change", this.fetchData);
@@ -52,7 +55,9 @@ class Tournament extends Component {
         console.log(this.state.selectedLogo);
         ServiceCall.uploadTournamentLogo(formData, this.state.editedRecord);
     }
-
+    deleteTnAction(event, recordId) {
+        ServiceCall.deleteTournamet(recordId);
+    }
     render() {
         let data = this.state.tournamentList;
         let displayValue = this.state.showLoginPop ? "block" : "none";
@@ -64,15 +69,33 @@ class Tournament extends Component {
                     {data !== undefined && data.map((v, i) =>{
                        return <div id={'tm-div-'+i} className="tm-div-cls"> 
                                 <div id={'tm-div-header-'+i}>
-                                    {v.logoData === null &&(
-                                        <span id={'tn-span-logo-'+i} className="tn-logo-cls"><img id={'tn-img-logo-'+i} style={{border: "1px solid #ccc", padding: "1px", cursor: "pointer"}}
-                                            onClick={event=>this.showLogoPop(event, v.recordId)} src={UploadLogo} />
-                                        </span> 
-                                    )}
-                                    {v.logoData !== null &&(
-                                        <span id={'tn-span-logo-'+i} className="tn-logo-cls"><img id={'tn-img-logo-'+i} src={"data:image/png;base64,"+v.logoData} /></span> 
-                                    )}
-                                    <span className="tn-label-cls" id={'tn-name-'+i}><a href="">{v.name}</a></span>
+                                    <table style={{width: "100%"}}>
+                                        <tbody>
+                                            <tr>
+                                                {v.logoData === null &&(
+                                                    <td style={{width: "5%"}}>
+                                                        <span id={'tn-span-logo-'+i} className="tn-logo-cls"><img id={'tn-img-logo-'+i} 
+                                                            style={{border: "1px solid #ccc", padding: "1px", cursor: "pointer", borderRadius: "6px"}}
+                                                            onClick={event=>this.showLogoPop(event, v.recordId)} src={UploadLogo} />
+                                                        </span>
+                                                    </td>
+                                                )}
+                                                {v.logoData !== null &&(
+                                                    <td style={{width: "5%"}}>
+                                                        <span id={'tn-span-logo-'+i} className="tn-logo-cls"><img id={'tn-img-logo-'+i} src={"data:image/png;base64,"+v.logoData} /></span> 
+                                                    </td>
+                                                )}
+                                                <td style={{width: "90%"}}>
+                                                    <span className="tn-label-cls" id={'tn-name-'+i}><a href="">{v.name}</a></span>
+                                                </td>
+                                                <td style={{width: "5%"}}>
+                                                    <img src={TrashIcon} style={{height: "25px", cursor: "pointer"}} 
+                                                        onClick={event=>this.deleteTnAction(event, v.recordId)}
+                                                    />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <div id={'tm-div-content-gen-'+i}>
                                     <span className="tn-label-cls" id={'tn-period-label'+i}>Period: </span>
@@ -86,10 +109,10 @@ class Tournament extends Component {
                                     <span className="value-span-cls">{v.gameName}</span>
                                     <span className="span-speraton-cls"></span>
                                     <span className="tn-label-cls">Type: </span>
-                                    <span className="value-span-cls">{v.type}</span>
+                                    <span className="value-span-cls">{TmsUtils.getTypeObject(v.type).label}</span>
                                     <span className="span-speraton-cls"></span>
                                     <span className="tn-label-cls">Category: </span>
-                                    <span className="value-span-cls">{v.category}</span>
+                                    <span className="value-span-cls">{TmsUtils.getCategoryObject(v.category).label}</span>
                                 </div>
                                 <div id={'tm-div-content-pro-'+i}>
                                     <span className="tn-label-cls">Promotors: </span>

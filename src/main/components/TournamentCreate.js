@@ -9,6 +9,7 @@ import TournamentStore from '../../stores/TournamentStore';
 import * as ServiceCall from '../controller/ServiceCall';
 import ActionTypes from '../../actions/TmsActionTypes';
 import * as UiPaths from '../controller/UiPaths';
+import * as TmsUtils from '../utils/TmsUtils';
 
 const tnName = 'name';
 const tnVenu = 'venue';
@@ -22,15 +23,6 @@ const tnAdFromDate = 'tnAdFrom';
 const tnAdtoDate = 'tnAdTo';
 const tnType = "tnType";
 const tnCategory = "tnCatg";
-const typeOptions = [];
-typeOptions.push({value: 1, label: "State"});
-typeOptions.push({value: 2, label: "National"});
-typeOptions.push({value: 3, label: "International"});
-const catOptions = [];
-catOptions.push({value: 1, label: "Under 19"});
-catOptions.push({value: 2, label: "Under 39"});
-catOptions.push({value: 3, label: "Under 45"});
-catOptions.push({value: 4, label: "Under 60"});
 
 class TournamentCreate extends Component {
     constructor(props) {
@@ -71,20 +63,8 @@ class TournamentCreate extends Component {
     fetchData() {
         let resData = TournamentStore.getTournamentDetails();
         if(resData !== undefined && TournamentStore.getActionType() === ActionTypes.TOURNAMENT_FIND) {
-            let tnCategoryObj = {};
-            let tnTypeObj = {};
-            catOptions.map((obj, index) => {
-                if(resData.category == obj.value) {
-                    tnCategoryObj = obj;
-                }
-                return "";
-            });
-            typeOptions.map((obj, index) => {
-                if(resData.category == obj.value) {
-                    tnTypeObj = obj;
-                }
-                return "";
-            });
+            let tnCategoryObj = TmsUtils.getCategoryObject(resData.category);
+            let tnTypeObj = TmsUtils.getTypeObject(resData.type);
             this.setState({tournamentName: resData.name,
                 venue: resData.venue,
                 tnGameName: resData.gameName,
@@ -151,8 +131,8 @@ class TournamentCreate extends Component {
             fromDate: new Date(stateData.tnToDate).getTime(),
             admisionStart: new Date(stateData.tnAdFromDate).getTime(),
             admisionEnd: new Date(stateData.tnAdToDate).getTime(),
-            tnCategoryObj: stateData.tnCategoryObj.value,
-            tnTypeObj: stateData.tnTypeObj.value
+            category: stateData.tnCategoryObj.value,
+            type: stateData.tnTypeObj.value
         }
         ServiceCall.addTournamet(request);
     }
@@ -170,10 +150,10 @@ class TournamentCreate extends Component {
                         onChange={event=>this.changeTextField(event, tnVenu)} />
                     <DropDownField label="Type" id="tn-game-txt-id" value={this.state.tnTypeObj}
                         onChange={event=>this.changeDropDownField(event, tnType)} 
-                        options={typeOptions} />
+                        options={TmsUtils.getTypeOptions()} />
                     <DropDownField label="Category" id="tn-catg-txt-id" value={this.state.tnCategoryObj}
                         onChange={event=>this.changeDropDownField(event, tnCategory)} 
-                        options={catOptions} />
+                        options={TmsUtils.getCategoryOptions()} />
                     <TextField label="Game Name" id="tn-game-txt-id" value={this.state.tnGameName}
                         onChange={event=>this.changeTextField(event, tnGame)} />
                     <DateField label="From" id="tn-from-date-id" value={this.state.tnFromDate}
