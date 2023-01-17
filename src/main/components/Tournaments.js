@@ -8,6 +8,7 @@ import UploadLogo from '../../main/images/Upload_Logo.png';
 import TrashIcon from '../../main/images/Trash.png';
 import * as UiPaths from '../controller/UiPaths';
 import * as TmsUtils from '../utils/TmsUtils';
+import TmsWarning from "./generic/TmsWarning";
 
 class Tournament extends Component {
     constructor(props) {
@@ -16,7 +17,8 @@ class Tournament extends Component {
            tournamentList: undefined,
            showLogoUpload: false,
            editedRecord: 0,
-           selectedLogo: undefined
+           selectedLogo: undefined,
+           showDeleteWarn: false
         }
         this.fetchData = this.fetchData.bind(this);
         this.onClickCreateBtn = this.onClickCreateBtn.bind(this);
@@ -24,6 +26,8 @@ class Tournament extends Component {
         this.onLogoSelect = this.onLogoSelect.bind(this);
         this.onLogoSave = this.onLogoSave.bind(this);
         this.deleteTnAction = this.deleteTnAction.bind(this);
+        this.deleteContinueAction = this.deleteContinueAction.bind(this);
+        this.deleteCacnelAction = this.deleteCacnelAction.bind(this);
     }
     componentDidMount() {
         TournamentStore.on("change", this.fetchData);
@@ -56,11 +60,22 @@ class Tournament extends Component {
         ServiceCall.uploadTournamentLogo(formData, this.state.editedRecord);
     }
     deleteTnAction(event, recordId) {
-        ServiceCall.deleteTournamet(recordId);
+        this.setState({editedRecord: recordId, showDeleteWarn: true});
+    }
+    deleteContinueAction() {
+        this.setState({showDeleteWarn: false});
+        ServiceCall.deleteTournamet(this.state.editedRecord);
+    }
+    deleteCacnelAction() {
+        this.setState({showDeleteWarn: false});
     }
     render() {
         let data = this.state.tournamentList;
         let displayValue = this.state.showLoginPop ? "block" : "none";
+        let displayWarnValue = "none";
+        if(this.state.showDeleteWarn !== undefined && this.state.showDeleteWarn === true) {
+            displayWarnValue = "block";
+        }
         return(
             <div className="tn-main-cls">
                     <div className="title-header-cls">List of Tournaments
@@ -137,6 +152,12 @@ class Tournament extends Component {
                         <TmsButton id="logo-submit-id" label="Save" align="right" type="primary" onClick={this.onLogoSave}/>
                         <Spacer align="right"/>
                         <TmsButton id="logo-close-id" label="Cancel" align="right" type="secondary" onClick={event=>this.setState({showLoginPop: !this.state.showLoginPop})}/>
+                    </div>
+                    <div className="login-popup_content" style={{display: displayWarnValue, width: "377px"}}>
+                        <TmsWarning 
+                            messsage = "Do you want delete the record ?"
+                            okAction={this.deleteContinueAction} cancelAction={this.deleteCacnelAction} 
+                            />
                     </div>
             </div>
         )
