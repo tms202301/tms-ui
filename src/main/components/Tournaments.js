@@ -32,6 +32,7 @@ class Tournament extends Component {
     componentDidMount() {
         TournamentStore.on("change", this.fetchData);
         let request = {};
+        TmsUtils.showMask();
         ServiceCall.findTournametList(request);
     } 
     componentWillUnmount() {
@@ -40,6 +41,7 @@ class Tournament extends Component {
 
     fetchData() {
         let resData = TournamentStore.getData();
+        TmsUtils.hideMask();
         this.setState({tournamentList: resData});
     }
     onClickCreateBtn() {

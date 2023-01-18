@@ -16,14 +16,17 @@ function App() {
   return (
     <Router>  
           <div className="App">
-          <LeftMenu /> 
-          <HeaderContent />
-          <Switch>  
-                <Route exact path='/' component={Home}></Route>  
-                <Route exact path={UiPaths.TOURNAMENT_CREATE_PATH} component={TournamentCreate}></Route>  
-                <Route exact path={UiPaths.TOURNAMENT_PATH} component={Tournament}></Route>  
-        </Switch>  
-          </div>  
+            <LeftMenu /> 
+            <HeaderContent />
+            <Switch>  
+                  <Route exact path='/' component={Home}></Route>  
+                  <Route exact path={UiPaths.TOURNAMENT_CREATE_PATH} component={TournamentCreate}></Route>  
+                  <Route exact path={UiPaths.TOURNAMENT_PATH} component={Tournament}></Route>  
+            </Switch>  
+          </div>
+          <div style={{display: "none"}} className="popup_overlay" id="load-mask-id">
+                <div className='load-mask-content-cls'>In Progress..</div>
+          </div>
        </Router>
   );
 }

@@ -21,11 +21,18 @@ class TmsUpload extends Component {
         if(this.props.fileLabel !== undefined) {
             fileLabel = this.props.label;
         }
+        let mandatory = this.props.required !== undefined ? this.props.required : false;
+        let error = this.props.error !== undefined ? this.props.error : "";
         return(
             <div className="cmp-main-cls" style={{float: floatValue}}>
-                <div style={{width: labelWidth+"px"}} className="input-label-cls">{label}</div>
-                <div className="file-cmp-cls">
+                <div style={{width: labelWidth+"px"}} className="input-label-cls">{label}
+                    {mandatory === true &&(<span className="label-mandate">*</span>)}
+                </div>
+                <div className="file-cmp-cls" style={{width: width+"px"}}>
                     <input type="file" id={this.props.id} name={this.props.id} onChange={this.props.onChange} />
+                    <div className="form-error-cls" style={{width: "100%"}}>
+                        {error}
+                    </div>
                 </div>
             </div>
         )
