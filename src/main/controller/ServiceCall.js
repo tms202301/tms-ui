@@ -40,7 +40,6 @@ async function getAction(endpoint) {
 
 async function postMultipartAction(endpoint, formData) {
     let headersObj = {
-        'Content-Type': 'multipart/form-data',
         'Access-Control-Allow-Origin': '*'
     }
     console.log(formData);

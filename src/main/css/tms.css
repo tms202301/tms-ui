@@ -209,15 +209,31 @@
   .popup-header {
     border-bottom: 1.5px solid #ccc;
     float: left;
-    width: 100%;
+    width: 99%;
     padding-bottom: 5px;
     margin-bottom: 5px;
     font-size: 21px;
+    background-color: #ad0798;
+    padding-left: 5px;
+    color: #fff;
   }
   .popup-content {
     float: left;
-    width: 100%;
+    width: 99%;
     padding-bottom: 20px;
     padding-top: 5px;
     font-size: 17px;
+    padding-left: 5px;
+  }
+  .warn-popup_content {
+    display: none;
+    position: absolute;
+    top: 35%;
+    left: 42%;
+    width: 50%;
+    height: auto;
+    border: 2px solid #ad0798;
+    background-color: white;
+    z-index: 1002;
+    padding-bottom: 5px;
   }

@@ -153,12 +153,10 @@ class Tournament extends Component {
                         <Spacer align="right"/>
                         <TmsButton id="logo-close-id" label="Cancel" align="right" type="secondary" onClick={event=>this.setState({showLoginPop: !this.state.showLoginPop})}/>
                     </div>
-                    <div className="login-popup_content" style={{display: displayWarnValue, width: "377px"}}>
-                        <TmsWarning 
-                            messsage = "Do you want delete the record ?"
-                            okAction={this.deleteContinueAction} cancelAction={this.deleteCacnelAction} 
-                            />
-                    </div>
+                    <TmsWarning showPop={this.state.showDeleteWarn}
+                        messsage = "Do you want delete the record ?"
+                        okAction={this.deleteContinueAction} cancelAction={this.deleteCacnelAction} 
+                    />
             </div>
         )
     }

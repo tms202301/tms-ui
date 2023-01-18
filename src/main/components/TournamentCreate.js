@@ -128,7 +128,7 @@ class TournamentCreate extends Component {
             organizer: stateData.tnOrg,
             description: stateData.tnDesc,
             fromDate: new Date(stateData.tnFromDate).getTime(),
-            fromDate: new Date(stateData.tnToDate).getTime(),
+            toDate: new Date(stateData.tnToDate).getTime(),
             admisionStart: new Date(stateData.tnAdFromDate).getTime(),
             admisionEnd: new Date(stateData.tnAdToDate).getTime(),
             category: stateData.tnCategoryObj.value,
