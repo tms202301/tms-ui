@@ -20,28 +20,28 @@ class LeftMenu extends Component {
                 <nav className="menucls">
                     <ul className="logoCls">
                         <li>
-                            <span><img src={LogoIcon} /></span>
+                            <span><img alt="" src={LogoIcon} /></span>
                         </li>
                     </ul>
                     <ul className="primary-menu">
                         <li>
-                            <span className="menu-icon-cls"><img src={HomeIcon} /></span>
+                            <span className="menu-icon-cls"><img alt="" src={HomeIcon} /></span>
                             <span><Link to="/">Home</Link></span>
                         </li>
                         <li>
-                            <span className="menu-icon-cls"><img src={TournamentIcon} /></span>
+                            <span className="menu-icon-cls"><img alt="" src={TournamentIcon} /></span>
                             <span><Link to={UiPaths.TOURNAMENT_PATH}>Tournament</Link></span>
                         </li>
                         <li>
-                            <span className="menu-icon-cls"><img src={PlayersIcon} /></span>
+                            <span className="menu-icon-cls"><img alt="" src={PlayersIcon} /></span>
                             <span>Players</span>
                         </li>
                         <li>
-                            <span className="menu-icon-cls"><img src={TournamentIcon} /></span>
+                            <span className="menu-icon-cls"><img alt="" src={TournamentIcon} /></span>
                             <span>Leagues</span>
                         </li>
                         <li>
-                            <span className="menu-icon-cls"><img src={ContactIcon} /></span>
+                            <span className="menu-icon-cls"><img alt="" src={ContactIcon} /></span>
                             <span>Contact</span>
                         </li>
                     </ul>

@@ -6,6 +6,9 @@ import Spacer from './components/generic/TmsSpacer';
 import LoginCmp from './components/TmsLogin';
 import * as ServiceCall from './controller/ServiceCall';
 import LoginStore from "../stores/LoginStore";
+import AppStore from "../stores/AppStore";
+import { withRouter } from "react-router-dom";
+import * as TmsUtils from "./utils/TmsUtils";
 
 class HeaderContent extends Component {
     constructor(props) {
@@ -22,12 +25,20 @@ class HeaderContent extends Component {
         this.closePopup = this.closePopup.bind(this);
         this.postLoginAction = this.postLoginAction.bind(this);
         this.onLogoutButtonClick = this.onLogoutButtonClick.bind(this);
+        this.errorPageHandler = this.errorPageHandler.bind(this);
     }
     componentDidMount() {
         LoginStore.addChangeListener(this.postLoginAction);
+        AppStore.on("change", this.errorPageHandler);
     } 
     componentWillUnmount() {
         LoginStore.removeChangeListener(this.postLoginAction);
+        AppStore.removeListener("change", this.errorPageHandler);
+    }
+    errorPageHandler() {
+        let errorPage = AppStore.getData();
+        TmsUtils.hideMask();
+        this.props.history.push('/'+errorPage);
     }
     postLoginAction() {
         let resData = LoginStore.getData();
@@ -67,4 +78,4 @@ class HeaderContent extends Component {
         )
     }
 }
-export default HeaderContent;
+export default withRouter(HeaderContent);

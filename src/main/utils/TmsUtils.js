@@ -37,3 +37,19 @@ export function getCategoryObject(value) {
     });  
     return returnObj;
 }
+
+export function validateEmpty(event, value, mandatory) {
+    let heighlightColor = "#1b1b1b";
+    if(mandatory === true && value === undefined || value === "" ) {
+        heighlightColor = "red";
+    }
+    event.currentTarget.style.border = '1px solid '+heighlightColor;
+}
+
+export function showMask() {
+    document.getElementById("load-mask-id").style.display = "block";
+}
+
+export function hideMask() {
+    document.getElementById("load-mask-id").style.display = "none";
+}

@@ -32,6 +32,7 @@ class Tournament extends Component {
     componentDidMount() {
         TournamentStore.on("change", this.fetchData);
         let request = {};
+        TmsUtils.showMask();
         ServiceCall.findTournametList(request);
     } 
     componentWillUnmount() {
@@ -40,6 +41,7 @@ class Tournament extends Component {
 
     fetchData() {
         let resData = TournamentStore.getData();
+        TmsUtils.hideMask();
         this.setState({tournamentList: resData});
     }
     onClickCreateBtn() {
@@ -72,10 +74,6 @@ class Tournament extends Component {
     render() {
         let data = this.state.tournamentList;
         let displayValue = this.state.showLoginPop ? "block" : "none";
-        let displayWarnValue = "none";
-        if(this.state.showDeleteWarn !== undefined && this.state.showDeleteWarn === true) {
-            displayWarnValue = "block";
-        }
         return(
             <div className="tn-main-cls">
                     <div className="title-header-cls">List of Tournaments
@@ -89,7 +87,7 @@ class Tournament extends Component {
                                             <tr>
                                                 {v.logoData === null &&(
                                                     <td style={{width: "5%"}}>
-                                                        <span id={'tn-span-logo-'+i} className="tn-logo-cls"><img id={'tn-img-logo-'+i} 
+                                                        <span id={'tn-span-logo-'+i} className="tn-logo-cls"><img alt="" id={'tn-img-logo-'+i} 
                                                             style={{border: "1px solid #ccc", padding: "1px", cursor: "pointer", borderRadius: "6px"}}
                                                             onClick={event=>this.showLogoPop(event, v.recordId)} src={UploadLogo} />
                                                         </span>
@@ -97,14 +95,14 @@ class Tournament extends Component {
                                                 )}
                                                 {v.logoData !== null &&(
                                                     <td style={{width: "5%"}}>
-                                                        <span id={'tn-span-logo-'+i} className="tn-logo-cls"><img id={'tn-img-logo-'+i} src={"data:image/png;base64,"+v.logoData} /></span> 
+                                                        <span id={'tn-span-logo-'+i} className="tn-logo-cls"><img alt="" id={'tn-img-logo-'+i} src={"data:image/png;base64,"+v.logoData} /></span> 
                                                     </td>
                                                 )}
                                                 <td style={{width: "90%"}}>
-                                                    <span className="tn-label-cls" id={'tn-name-'+i}><a href="">{v.name}</a></span>
+                                                    <span className="tn-label-cls" id={'tn-name-'+i}><a href="#">{v.name}</a></span>
                                                 </td>
                                                 <td style={{width: "5%"}}>
-                                                    <img src={TrashIcon} style={{height: "25px", cursor: "pointer"}} 
+                                                    <img alt="" src={TrashIcon} style={{height: "25px", cursor: "pointer"}} 
                                                         onClick={event=>this.deleteTnAction(event, v.recordId)}
                                                     />
                                                 </td>
@@ -147,18 +145,18 @@ class Tournament extends Component {
                             </div>
                     })
                     }
-                    <div className="login-popup_content" style={{display: displayValue, width: "377px"}}>
-                        <FileComp id="logo-file-upload-id" onChange={this.onLogoSelect}/>
-                        <TmsButton id="logo-submit-id" label="Save" align="right" type="primary" onClick={this.onLogoSave}/>
-                        <Spacer align="right"/>
-                        <TmsButton id="logo-close-id" label="Cancel" align="right" type="secondary" onClick={event=>this.setState({showLoginPop: !this.state.showLoginPop})}/>
+                    <div className="popup_overlay" style={{display: displayValue}}>
+                        <div className="login-popup_content" style={{display: displayValue, width: "377px"}}>
+                            <FileComp id="logo-file-upload-id" onChange={this.onLogoSelect}/>
+                            <TmsButton id="logo-submit-id" label="Save" align="right" type="primary" onClick={this.onLogoSave}/>
+                            <Spacer align="right"/>
+                            <TmsButton id="logo-close-id" label="Cancel" align="right" type="secondary" onClick={event=>this.setState({showLoginPop: !this.state.showLoginPop})}/>
+                        </div>
                     </div>
-                    <div className="login-popup_content" style={{display: displayWarnValue, width: "377px"}}>
-                        <TmsWarning 
-                            messsage = "Do you want delete the record ?"
-                            okAction={this.deleteContinueAction} cancelAction={this.deleteCacnelAction} 
-                            />
-                    </div>
+                    <TmsWarning showPop={this.state.showDeleteWarn}
+                        messsage = "Do you want delete the record ?"
+                        okAction={this.deleteContinueAction} cancelAction={this.deleteCacnelAction} 
+                    />
             </div>
         )
     }

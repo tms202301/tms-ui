@@ -17,8 +17,17 @@ async function postAction(endpoint, request) {
         mode: 'cors',
         body: JSON.stringify(request)
     };
-    const response = await fetch(endpoint, requestOptions);
-    const data = await response.json();
+    let data = undefined;
+    const response = await fetch(endpoint, requestOptions).then((response) => {
+        if (response.status >= 400 && response.status < 600) {
+          throw new Error("Bad response from server");
+        }
+        return response;
+    }).then((returnedResponse) => {
+       data = returnedResponse.json();
+    }).catch((error) => {
+        Dispatch.dispatch(TmsActionTypes.ERROR_500, "error500");
+    });
     return data;
 }
 
@@ -33,25 +42,41 @@ async function getAction(endpoint) {
         headers: headersObj,
         mode: 'cors'
     };
-    const response = await fetch(endpoint, requestOptions);
-    const data = await response.json();
+    let data = undefined;
+    const response = await fetch(endpoint, requestOptions).then((response) => {
+        if (response.status >= 400 && response.status < 600) {
+          throw new Error("Bad response from server");
+        }
+        return response;
+    }).then((returnedResponse) => {
+       data = returnedResponse.json();
+    }).catch((error) => {
+        Dispatch.dispatch(TmsActionTypes.ERROR_500, "error500");
+    });
     return data;
 }
 
 async function postMultipartAction(endpoint, formData) {
-   /*let headersObj = {
-        'Content-Type': 'multipart/form-data',
+    let headersObj = {
         'Access-Control-Allow-Origin': '*'
-    }*/
-    console.log(formData);
-    const requestOptions = {
+    }
+     const requestOptions = {
         method: 'POST',
-      //  headers: headersObj,
+        headers: headersObj,
         mode: 'cors',
         body: formData
     };
-    const response = await fetch(endpoint, requestOptions);
-    const data = await response.json();
+    let data = undefined;
+    const response = await fetch(endpoint, requestOptions).then((response) => {
+        if (response.status >= 400 && response.status < 600) {
+          throw new Error("Bad response from server");
+        }
+        return response;
+    }).then((returnedResponse) => {
+       data = returnedResponse.json();
+    }).catch((error) => {
+        Dispatch.dispatch(TmsActionTypes.ERROR_500, "error500");
+    });
     return data;
 }
 
@@ -66,8 +91,17 @@ async function deleteAction(endpoint) {
         headers: headersObj,
         mode: 'cors'
     };
-    const response = await fetch(endpoint, requestOptions);
-    const data = await response.json();
+    let data = undefined;
+    const response = await fetch(endpoint, requestOptions).then((response) => {
+        if (response.status >= 400 && response.status < 600) {
+          throw new Error("Bad response from server");
+        }
+        return response;
+    }).then((returnedResponse) => {
+       data = returnedResponse.json();
+    }).catch((error) => {
+        Dispatch.dispatch(TmsActionTypes.ERROR_500, "error500");
+    });
     return data;
 }
 
