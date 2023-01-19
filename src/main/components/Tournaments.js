@@ -87,7 +87,7 @@ class Tournament extends Component {
                                             <tr>
                                                 {v.logoData === null &&(
                                                     <td style={{width: "5%"}}>
-                                                        <span id={'tn-span-logo-'+i} className="tn-logo-cls"><img id={'tn-img-logo-'+i} 
+                                                        <span id={'tn-span-logo-'+i} className="tn-logo-cls"><img alt="" id={'tn-img-logo-'+i} 
                                                             style={{border: "1px solid #ccc", padding: "1px", cursor: "pointer", borderRadius: "6px"}}
                                                             onClick={event=>this.showLogoPop(event, v.recordId)} src={UploadLogo} />
                                                         </span>
@@ -95,14 +95,14 @@ class Tournament extends Component {
                                                 )}
                                                 {v.logoData !== null &&(
                                                     <td style={{width: "5%"}}>
-                                                        <span id={'tn-span-logo-'+i} className="tn-logo-cls"><img id={'tn-img-logo-'+i} src={"data:image/png;base64,"+v.logoData} /></span> 
+                                                        <span id={'tn-span-logo-'+i} className="tn-logo-cls"><img alt="" id={'tn-img-logo-'+i} src={"data:image/png;base64,"+v.logoData} /></span> 
                                                     </td>
                                                 )}
                                                 <td style={{width: "90%"}}>
-                                                    <span className="tn-label-cls" id={'tn-name-'+i}><a href="">{v.name}</a></span>
+                                                    <span className="tn-label-cls" id={'tn-name-'+i}><a href="#">{v.name}</a></span>
                                                 </td>
                                                 <td style={{width: "5%"}}>
-                                                    <img src={TrashIcon} style={{height: "25px", cursor: "pointer"}} 
+                                                    <img alt="" src={TrashIcon} style={{height: "25px", cursor: "pointer"}} 
                                                         onClick={event=>this.deleteTnAction(event, v.recordId)}
                                                     />
                                                 </td>
