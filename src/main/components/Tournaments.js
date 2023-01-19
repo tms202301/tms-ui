@@ -74,10 +74,6 @@ class Tournament extends Component {
     render() {
         let data = this.state.tournamentList;
         let displayValue = this.state.showLoginPop ? "block" : "none";
-        let displayWarnValue = "none";
-        if(this.state.showDeleteWarn !== undefined && this.state.showDeleteWarn === true) {
-            displayWarnValue = "block";
-        }
         return(
             <div className="tn-main-cls">
                     <div className="title-header-cls">List of Tournaments
@@ -149,11 +145,13 @@ class Tournament extends Component {
                             </div>
                     })
                     }
-                    <div className="login-popup_content" style={{display: displayValue, width: "377px"}}>
-                        <FileComp id="logo-file-upload-id" onChange={this.onLogoSelect}/>
-                        <TmsButton id="logo-submit-id" label="Save" align="right" type="primary" onClick={this.onLogoSave}/>
-                        <Spacer align="right"/>
-                        <TmsButton id="logo-close-id" label="Cancel" align="right" type="secondary" onClick={event=>this.setState({showLoginPop: !this.state.showLoginPop})}/>
+                    <div className="popup_overlay" style={{display: displayValue}}>
+                        <div className="login-popup_content" style={{display: displayValue, width: "377px"}}>
+                            <FileComp id="logo-file-upload-id" onChange={this.onLogoSelect}/>
+                            <TmsButton id="logo-submit-id" label="Save" align="right" type="primary" onClick={this.onLogoSave}/>
+                            <Spacer align="right"/>
+                            <TmsButton id="logo-close-id" label="Cancel" align="right" type="secondary" onClick={event=>this.setState({showLoginPop: !this.state.showLoginPop})}/>
+                        </div>
                     </div>
                     <TmsWarning showPop={this.state.showDeleteWarn}
                         messsage = "Do you want delete the record ?"
