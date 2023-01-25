@@ -146,3 +146,17 @@ export async function deleteTournamet(recordId) {
     let response = await deleteAction(endpoint);
     Dispatch.dispatch(TmsActionTypes.TOURNAMENT_LIST, response);
 }
+
+export async function findUpcomingTournametList(req) {
+    let endpoint = EndPoints.TOURNAMENT_LIST_UPCOMING;
+    let request = req;
+    let response = await postAction(endpoint, request);
+    Dispatch.dispatch(TmsActionTypes.TOURNAMENT_LIST_UPCOMING, response);
+}
+
+export async function findOlderTournametList(req) {
+    let endpoint = EndPoints.TOURNAMENT_LIST_OLDER;
+    let request = req;
+    let response = await postAction(endpoint, request);
+    Dispatch.dispatch(TmsActionTypes.TOURNAMENT_LIST_OLDER, response);
+}

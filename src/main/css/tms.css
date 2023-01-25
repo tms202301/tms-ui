@@ -80,6 +80,8 @@
     width: 82%;
     float: left;
     margin: 10px 20px 20px 20px;
+    background-color: #fff;
+    padding: 5px;
   }
   .cmp-main-cls {
     width: 90%;
@@ -168,9 +170,10 @@
     padding-left: 4px;
   }
   .tm-div-cls {
-    border-top: 1px solid #ccc;
     padding-bottom: 10px;
     width: 100%;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
   }
   .tm-div-cls div {
     width: 100%;
@@ -192,8 +195,10 @@
     margin-right: 10px;
   }
   .title-header-cls {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     font-size: 25px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
   }
   .tn-logo-cls {
     margin-right: 15px;
@@ -259,3 +264,4 @@
     font-size: 25px;
     margin-top: 20px;
   }
+  
