@@ -34,7 +34,7 @@ class LeftMenu extends Component {
                         </li>
                         <li>
                             <span className="menu-icon-cls"><img alt="" src={PlayersIcon} /></span>
-                            <span>Players</span>
+                            <span><Link to={UiPaths.PLAYERS_PATH}>Players</Link></span>
                         </li>
                         <li>
                             <span className="menu-icon-cls"><img alt="" src={TournamentIcon} /></span>

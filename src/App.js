@@ -11,6 +11,7 @@ import { BrowserRouter as Router,Switch, Route } from "react-router-dom";
 import * as UiPaths from './main/controller/UiPaths';
 import TournamentCreate from './main/components/TournamentCreate';
 import Error500 from './main/components/errorpages/Error500';
+import Players from './main/components/Players';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route exact path='/' component={Home}></Route>  
         <Route exact path={UiPaths.TOURNAMENT_CREATE_PATH} component={TournamentCreate}></Route>  
         <Route exact path={UiPaths.TOURNAMENT_PATH} component={Tournament}></Route>
+        <Route exact path={UiPaths.PLAYERS_PATH} component={Players}></Route>
         <Route exact path={UiPaths.PAGE_500} component={Error500}></Route>
       </Switch>  
     </div>

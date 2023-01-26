@@ -160,3 +160,9 @@ export async function findOlderTournametList(req) {
     let response = await postAction(endpoint, request);
     Dispatch.dispatch(TmsActionTypes.TOURNAMENT_LIST_OLDER, response);
 }
+export async function addPlayer(req) {
+    let endpoint = EndPoints.PLAYER_ADD;
+    let request = req;
+    let response = await postAction(endpoint, request);
+    Dispatch.dispatch(TmsActionTypes.TOURNAMENT_ADD, response);
+}
