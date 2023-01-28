@@ -1,10 +1,15 @@
 import { Component } from "react";
 import * as TmsUtils from '../utils/TmsUtils';
+import TmsButton from "./generic/TmsButton";
 
 class TenantsGrid extends Component {
     constructor(props) {
         super(props);
         this.state ={}
+        this.onClickJoinBtn = this.onClickJoinBtn.bind(this);
+    }
+    onClickJoinBtn(recordId) {
+        alert('recordId =>'+recordId);
     }
     render() {
         let data = this.props.data;
@@ -24,6 +29,11 @@ class TenantsGrid extends Component {
                                                 <td style={{width: "90%"}}>
                                                     <span className="tn-label-cls" id={'tn-name-'+i}><a href="#">{v.name}</a></span>
                                                 </td>
+                                                {this.props.joinAction !== undefined &&(
+                                                    <td style={{width: "5%"}}>
+                                                        <TmsButton id={'tm-join-btn-'+i} label="Join" align="right" onClick={event=>this.onClickJoinBtn(v.recordId)} />
+                                                    </td>
+                                                )}
                                             </tr>
                                         </tbody>
                                     </table>

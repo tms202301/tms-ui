@@ -84,7 +84,7 @@
     padding: 5px;
   }
   .cmp-main-cls {
-    width: 90%;
+    width: 98%;
     float: left;
     margin: 4px;
   }
@@ -151,8 +151,8 @@
   .login-popup_content {
     display: none;
     position: absolute;
-    top: 25%;
-    left: 42%;
+    top: 10%;
+    left: 30%;
     width: 50%;
     height: auto;
     padding: 16px;
@@ -160,6 +160,7 @@
     background-color: white;
     z-index: 1002;
     overflow: auto;
+    color: #1b1b1b;
   }
   .full-name-cls {
     width: 31%;
@@ -264,4 +265,22 @@
     font-size: 25px;
     margin-top: 20px;
   }
-  
+  .join-btn-cls {
+    border: 1px solid #ad0798;
+    background-color: #ad0798;
+  }
+  .popup_backgroud {
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 120%;
+    background-color: black;
+    z-index: 1001;
+    -moz-opacity: 0.8;
+    opacity: .94;
+    filter: alpha(opacity=80);
+    color: #fff;
+    font-size: 20px;
+  }

@@ -18,7 +18,7 @@ async function postAction(endpoint, request) {
         body: JSON.stringify(request)
     };
     let data = undefined;
-    const response = await fetch(endpoint, requestOptions).then((response) => {
+    await fetch(endpoint, requestOptions).then((response) => {
         if (response.status >= 400 && response.status < 600) {
           throw new Error("Bad response from server");
         }
@@ -43,7 +43,7 @@ async function getAction(endpoint) {
         mode: 'cors'
     };
     let data = undefined;
-    const response = await fetch(endpoint, requestOptions).then((response) => {
+    await fetch(endpoint, requestOptions).then((response) => {
         if (response.status >= 400 && response.status < 600) {
           throw new Error("Bad response from server");
         }
@@ -67,7 +67,7 @@ async function postMultipartAction(endpoint, formData) {
         body: formData
     };
     let data = undefined;
-    const response = await fetch(endpoint, requestOptions).then((response) => {
+    await fetch(endpoint, requestOptions).then((response) => {
         if (response.status >= 400 && response.status < 600) {
           throw new Error("Bad response from server");
         }
@@ -92,7 +92,7 @@ async function deleteAction(endpoint) {
         mode: 'cors'
     };
     let data = undefined;
-    const response = await fetch(endpoint, requestOptions).then((response) => {
+    await fetch(endpoint, requestOptions).then((response) => {
         if (response.status >= 400 && response.status < 600) {
           throw new Error("Bad response from server");
         }
@@ -165,4 +165,11 @@ export async function addPlayer(req) {
     let request = req;
     let response = await postAction(endpoint, request);
     Dispatch.dispatch(TmsActionTypes.TOURNAMENT_ADD, response);
+}
+
+export async function addUser(req) {
+    let endpoint = EndPoints.ADD_USER;
+    let request = req;
+    let response = await postAction(endpoint, request);
+    Dispatch.dispatch(TmsActionTypes.ADD_USER, response);
 }

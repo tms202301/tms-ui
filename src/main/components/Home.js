@@ -39,7 +39,6 @@ class Home extends Component {
         }
         TmsUtils.showMask();
     }
-    
     render() {
         let data = this.state.tournamentList;
         return(
@@ -54,7 +53,7 @@ class Home extends Component {
                         <TenantsGrid data={data} />
                     </TabPanel>
                     <TabPanel>
-                        <TenantsGrid data={data} />
+                        <TenantsGrid data={data} joinAction={true}/>
                     </TabPanel>
                 </Tabs>
             </div>

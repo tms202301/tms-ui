@@ -14,6 +14,7 @@ class TmsLogin extends Component {
         this.userOnchangeFn = this.userOnchangeFn.bind(this);
         this.paswordOnchangeFn = this.paswordOnchangeFn.bind(this);
         this.okAction = this.okAction.bind(this);
+        this.singUpAction = this.singUpAction.bind(this);
     }
     userOnchangeFn(event) {
         this.setState({userName: event.target.value});
@@ -24,11 +25,16 @@ class TmsLogin extends Component {
     okAction() {
         this.props.ok(this.state);
     }
+    singUpAction() {
+        this.props.singUpAction();
+    }
     render() {
         return(
             <div className="cmp-main-cls">
-                <InputField labelWidth="100" id="login-username-id" label="User Name" value={this.state.userName} onChange={this.userOnchangeFn} />
-                <PasswordField labelWidth="100" id="login-password-id" label="Password" value={this.state.password} onChange={this.paswordOnchangeFn} />
+                <InputField labelWidth="115" id="login-username-id" label="User Name" value={this.state.userName} onChange={this.userOnchangeFn} />
+                <PasswordField labelWidth="115" id="login-password-id" label="Password" value={this.state.password} onChange={this.paswordOnchangeFn} />
+                <Button id="signup-btn-id" label="Sign Up" align="right" type="primary" onClick={this.singUpAction}/>
+                <Spacer align="right"/>
                 <Button id="login-submit-id" label="Login" align="right" type="primary" onClick={this.okAction}/>
                 <Spacer align="right"/>
                 <Button id="login-cancel-id" label="Cancel" align="right" type="secondary" onClick={this.props.cancel}/>
