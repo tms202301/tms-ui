@@ -1,3 +1,5 @@
+import * as ServiceCall from '../controller/ServiceCall';
+import TmsActionTypes from '../../actions/TmsActionTypes';
 const typeOptions = [];
 typeOptions.push({value: 1, label: "State"});
 typeOptions.push({value: 2, label: "National"});
@@ -7,7 +9,7 @@ catOptions.push({value: 1, label: "Under 19"});
 catOptions.push({value: 2, label: "Under 39"});
 catOptions.push({value: 3, label: "Under 45"});
 catOptions.push({value: 4, label: "Under 60"});
-
+const statesDetails=[];
 export function getTypeOptions() {
     return typeOptions;
 }
@@ -52,4 +54,7 @@ export function showMask() {
 
 export function hideMask() {
     document.getElementById("load-mask-id").style.display = "none";
+}
+export function getStates(){
+    let returnObj = ServiceCall.getStates();
 }

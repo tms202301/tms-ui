@@ -9,8 +9,13 @@ import * as UiPaths from '../controller/UiPaths';
 import UploadLogo from '../../main/images/Upload_Logo.png';
 import FileComp from './generic/TmsUpload';
 import TmsButton from './generic/TmsButton';
+import TmsRadioButton from './generic/TmsRadioButton';
+import TmsCheckBox from './generic/TmsCheckBox';
+import PlayerStore from '../../stores/PlayerStore';
+import * as ServiceCall from '../controller/ServiceCall';
 const pName = 'name';
 const pState = 'pstate';
+const pDistict = 'pdistict';
 const PGender = 'gender';
 const pGuardian = 'guardian';
 const pAddress = 'address';
@@ -49,7 +54,13 @@ constructor(props){
     schoolNameError:"",
     schoolName:"",
     academicQualificationError:"",
-    academicQualification:""
+    academicQualification:"",
+    statesObj: {},
+    statesObjError:"",
+    plstate:"--",
+    distictsObj: {},
+    distictsError:"",
+    pldistict:"--"
 
  };
  this.changeTextField = this.changeTextField.bind(this);
@@ -58,6 +69,30 @@ constructor(props){
  this.onSaveAction = this.onSaveAction.bind(this);
  this.onCancelAction = this.onCancelAction.bind(this);
  this.showLogoPop = this.showLogoPop.bind(this);
+ this.fetchData = this.fetchData.bind(this);
+ this.changeDropDownField = this.changeDropDownField.bind(this);
+}
+changeDropDownField(value, type) {
+    if(type === pState) {
+        this.setState({plstate: value});
+    } 
+    alert(value.value);
+    ServiceCall.getDisticts(value.value);
+    let resData = PlayerStore.getDistictDetails();
+    let stateObjsOpt=[];
+    for( var i=0;i<resData.length;i++){
+        let dbObj=resData[i];
+        stateObjsOpt.push({"label": dbObj.name,"value":dbObj.id})
+    }
+    this.setState({ 
+        distictsObj: stateObjsOpt,
+        pldistict: stateObjsOpt[0]
+    });
+}
+changeDistDropDownField(value, type){
+    if(type === pDistict) {
+        this.setState({pldistict: value});
+    } 
 }
 resetErrorMessages() {
     this.setState({ 
@@ -70,7 +105,11 @@ resetErrorMessages() {
         academicQualificationError: "",
         beltCertificateNoError: "",
         schoolNameError: "",
-        coachNameError: ""   
+        coachNameError: "",
+        statesObj: {},
+        statesObjError:"",
+        distictsObj:"",
+        distictsObjErrot:""   
     });
 }
 onCancelAction() {
@@ -148,7 +187,14 @@ validateFormFields(request) {
         this.setState({coachNameError: "Value should not be more than 50 charecters"});
         res = true;
     }
-    
+    if(request.type === undefined || request.type === "") {
+        this.setState({statesObjError: "Type should not be empty"});
+        res = true;
+    }
+    if(request.type === undefined || request.type === "") {
+        this.setState({distictsObjError: "Type should not be empty"});
+        res = true;
+    }
 
 }
 changeTextField(event, type) {
@@ -178,7 +224,7 @@ changeTextField(event, type) {
     }if(type === pBeltCertNo ) {
         this.setState({beltCertificateNo: value});
     }    
-
+   
     
 }
 onSaveAction() {
@@ -203,6 +249,27 @@ onSaveAction() {
 showLogoPop(event, recordId) {
     this.setState({showLoginPop: !this.state.showLoginPop, editedRecord: recordId});
 }
+
+componentDidMount() {
+   
+    PlayerStore.on("change", this.fetchData);
+    ServiceCall.getStates();  
+} 
+componentWillUnmount() {
+    
+    PlayerStore.removeListener("change", this.fetchData);
+}
+fetchData() {
+    let resData = PlayerStore.getStatesDetails();
+    let stateObjsOpt=[];
+    for( var i=0;i<resData.length;i++){
+        let dbObj=resData[i];
+        stateObjsOpt.push({"label": dbObj.name,"value":dbObj.id})
+    }
+    this.setState({ 
+        statesObj: stateObjsOpt
+    });
+}
 render(){
     let displayValue = this.state.showLoginPop ? "block" : "none";
     return (
@@ -216,9 +283,32 @@ render(){
                     style={{border: "1px solid #ccc", padding: "1px", cursor: "pointer", borderRadius: "6px"}}
                     onClick={event=>this.showLogoPop(event, null)} src={UploadLogo} />
         </span>
+        
+        <div class="cmp-main-cls" style={{float: "left"}}>
+        <div class="input-label-cls" style={{width: "250px;"}}>Gender<span class="label-mandate">*</span></div>
+        <div class="input-cmp-cls" style={{width: "250px;"}}>
+        <input  id="p-gender-txt-male" name="p-gender-txt" className="input-tms" type="radio" value="0" onChange={this.props.onChange} checked="true"/>
+        <label >Male</label>
+        <input  id="p-gender-txt-female" name="p-gender-txt" className="input-tms" type="radio" value="1" onChange={this.props.onChange} />
+        <label>Female</label>
+        <div class="form-error-cls" style={{width: "100%;"}}></div>
+        </div>
+        </div>
+       
+        
+        
+      
         <DateField label="DateOfBirth" id="p-date-of-birth-id" value={this.state.dateOfBirth}
                         onChange={event=>this.changeDateField(event, pDateOfBirth)} 
                         required={true} error={this.state.dateOfBirthError} />
+        <DropDownField label="State" id="pl-state-dropdown-id" value={this.state.plstate}
+                        onChange={event=>this.changeDropDownField(event, pState)} 
+                        options={this.state.statesObj}  
+                        required={true} error={this.state.statesObjError}/>
+        <DropDownField label="Distict" id="pl-distict-drop-id" value={this.state.pldistict}
+                        onChange={event=>this.changeDistDropDownField(event, pDistict)} 
+                        options={this.state.distictsObj}  
+                        required={true} error={this.state.distictsObjError}/>                
        <TextField label="Guardian" id="p-guardian-txt-id" value={this.state.guardian}
                         onChange={event=>this.changeTextField(event, pGuardian)} 
                         required={true} error={this.state.guardianError}/>
@@ -243,6 +333,7 @@ render(){
         <TextField label="CoachName" id="tn-AQualification-txt-id" value={this.state.coachName}
                         onChange={event=>this.changeTextField(event, pcoachName)} 
                         required={true} error={this.state.coachNameError}/>
+        <TmsCheckBox label={ptrems} labelWidth="1000"/>
         
         </div>
                 <div style={{width: "48%", float: "left"}}>

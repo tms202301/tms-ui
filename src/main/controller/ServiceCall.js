@@ -166,10 +166,20 @@ export async function addPlayer(req) {
     let response = await postAction(endpoint, request);
     Dispatch.dispatch(TmsActionTypes.TOURNAMENT_ADD, response);
 }
-
 export async function addUser(req) {
     let endpoint = EndPoints.ADD_USER;
     let request = req;
     let response = await postAction(endpoint, request);
     Dispatch.dispatch(TmsActionTypes.ADD_USER, response);
 }
+export async function getStates() {
+    let endpoint = EndPoints.STATES_LIST;    
+    let response = await getAction(endpoint);
+    Dispatch.dispatch(TmsActionTypes.STATES_LIST, response);
+}
+export async function getDisticts(req) {
+    let endpoint = EndPoints.DISTICTS_LIST+"/"+req;    
+    let response = await getAction(endpoint);
+    Dispatch.dispatch(TmsActionTypes.DISTICTS_LIST, response);
+}
+

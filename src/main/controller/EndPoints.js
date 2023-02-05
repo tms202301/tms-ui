@@ -10,3 +10,5 @@ export const TOURNAMENT_LIST_UPCOMING = URL + '/tournament/upcoming/list';
 export const TOURNAMENT_LIST_OLDER = URL + '/tournament/older/list';
 export const PLAYER_ADD = URL + '/player/add';
 export const ADD_USER = URL + '/user/add';
+export const STATES_LIST = URL + '/states/list';
+export const DISTICTS_LIST = URL + '/districts/list';
