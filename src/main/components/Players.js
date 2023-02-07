@@ -71,12 +71,17 @@ constructor(props){
  this.showLogoPop = this.showLogoPop.bind(this);
  this.fetchData = this.fetchData.bind(this);
  this.changeDropDownField = this.changeDropDownField.bind(this);
+ this.changeDateField = this.changeDateField.bind(this);
+}
+changeDateField(value, type) {
+    if(type === pDateOfBirth) {
+        this.setState({dateOfBirth: value});
+    } 
 }
 changeDropDownField(value, type) {
     if(type === pState) {
         this.setState({plstate: value});
     } 
-    alert(value.value);
     ServiceCall.getDisticts(value.value);
     let resData = PlayerStore.getDistictDetails();
     let stateObjsOpt=[];
@@ -118,6 +123,7 @@ onCancelAction() {
     this.props.history.push(UiPaths.PLAYERS_PATH);
 }
 validateFormFields(request) {
+    alert(request)
     this.resetErrorMessages();
     let res = false;
     if(request.name === undefined || request.name === "") {
@@ -187,11 +193,11 @@ validateFormFields(request) {
         this.setState({coachNameError: "Value should not be more than 50 charecters"});
         res = true;
     }
-    if(request.type === undefined || request.type === "") {
+    if(request.plstate === undefined || request.plstate === "") {
         this.setState({statesObjError: "Type should not be empty"});
         res = true;
     }
-    if(request.type === undefined || request.type === "") {
+    if(request.pldistict === undefined || request.pldistict === "") {
         this.setState({distictsObjError: "Type should not be empty"});
         res = true;
     }
@@ -223,7 +229,9 @@ changeTextField(event, type) {
         this.setState({coachName: value});
     }if(type === pBeltCertNo ) {
         this.setState({beltCertificateNo: value});
-    }    
+    }if(type===pTFID)   {
+        this.setState({tFIID: value});
+    } 
    
     
 }
@@ -238,7 +246,10 @@ onSaveAction() {
         dateOfBirth: new Date(stateData.dateOfBirth).getTime(), 
         beltCertificateNo: stateData.beltCertificateNo,
         academicQualification: stateData.academicQualification,  
-        schoolName: stateData.schoolName,       
+        schoolName: stateData.schoolName,
+        plstate:stateData.plstate,
+        pldistict:stateData.pldistict
+
     }
     let validate = this.validateFormFields(request);
   //  if(!validate) {
