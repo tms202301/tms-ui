@@ -5,6 +5,7 @@ import * as ServiceCall from '../controller/ServiceCall';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import TenantsGrid from "./TenantsGrid";
+import GameFlow from "./GameFlow";
 
 class Home extends Component {
     constructor(props) {
@@ -48,12 +49,16 @@ class Home extends Component {
                     <TabList>
                         <Tab>Older</Tab>
                         <Tab>Upcoming</Tab>
+                        <Tab>Flow</Tab>
                     </TabList>
                     <TabPanel>
                         <TenantsGrid data={data} />
                     </TabPanel>
                     <TabPanel>
                         <TenantsGrid data={data} joinAction={true}/>
+                    </TabPanel>
+                    <TabPanel>
+                        <GameFlow />
                     </TabPanel>
                 </Tabs>
             </div>
