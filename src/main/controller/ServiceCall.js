@@ -2,6 +2,7 @@
 import * as EndPoints from './EndPoints';
 import * as Dispatch from '../../TmsDispatcher';
 import TmsActionTypes from '../../actions/TmsActionTypes';
+import * as MessageUtils from '../utils/MessageUtils';
 
 async function postAction(endpoint, request) {
     // POST request using fetch with async/await
@@ -28,6 +29,7 @@ async function postAction(endpoint, request) {
     }).catch((error) => {
         Dispatch.dispatch(TmsActionTypes.ERROR_500, "error500");
     });
+    window.scrollTo(0, 0);
     return data;
 }
 
@@ -53,6 +55,7 @@ async function getAction(endpoint) {
     }).catch((error) => {
         Dispatch.dispatch(TmsActionTypes.ERROR_500, "error500");
     });
+    window.scrollTo(0, 0);
     return data;
 }
 
@@ -77,6 +80,7 @@ async function postMultipartAction(endpoint, formData) {
     }).catch((error) => {
         Dispatch.dispatch(TmsActionTypes.ERROR_500, "error500");
     });
+    window.scrollTo(0, 0);
     return data;
 }
 
@@ -102,6 +106,7 @@ async function deleteAction(endpoint) {
     }).catch((error) => {
         Dispatch.dispatch(TmsActionTypes.ERROR_500, "error500");
     });
+    window.scrollTo(0, 0);
     return data;
 }
 
@@ -116,7 +121,7 @@ export async function findTournametList(req) {
     let endpoint = EndPoints.TOURNAMENT_LIST;
     let request = req;
     let response = await postAction(endpoint, request);
-    Dispatch.dispatch(TmsActionTypes.TOURNAMENT_LIST, response);
+    Dispatch.dispatch(TmsActionTypes.TOURNAMENT_LIST, response.tournamentInfos);
 }
 
 export async function findTournament(recordId) {
@@ -130,35 +135,38 @@ export async function uploadTournamentLogo(file, recordId) {
     let endpoint = EndPoints.TOURNAMENT_UPLOAD_LOG;
     endpoint += '?recordId='+recordId;
     let response = await postMultipartAction(endpoint, file);
-    Dispatch.dispatch(TmsActionTypes.TOURNAMENT_LIST, response);
+    MessageUtils.showSuccessMessage("Logo uploaded successfully");
+    Dispatch.dispatch(TmsActionTypes.TOURNAMENT_LIST, response.tournamentInfos);
 }
 
 export async function addTournamet(req) {
     let endpoint = EndPoints.TOURNAMENT_ADD;
     let request = req;
     let response = await postAction(endpoint, request);
-    Dispatch.dispatch(TmsActionTypes.TOURNAMENT_ADD, response);
+    MessageUtils.showSuccessMessage("Tournament added successfully");
+    Dispatch.dispatch(TmsActionTypes.TOURNAMENT_ADD, response.tournamentInfos);
 }
 
 export async function deleteTournamet(recordId) {
     let endpoint = EndPoints.TOURNAMENT_DELETE;
     endpoint += '?recordId='+recordId;
     let response = await deleteAction(endpoint);
-    Dispatch.dispatch(TmsActionTypes.TOURNAMENT_LIST, response);
+    MessageUtils.showSuccessMessage("Tournament deleted successfully");
+    Dispatch.dispatch(TmsActionTypes.TOURNAMENT_LIST, response.tournamentInfos);
 }
 
 export async function findUpcomingTournametList(req) {
     let endpoint = EndPoints.TOURNAMENT_LIST_UPCOMING;
     let request = req;
     let response = await postAction(endpoint, request);
-    Dispatch.dispatch(TmsActionTypes.TOURNAMENT_LIST_UPCOMING, response);
+    Dispatch.dispatch(TmsActionTypes.TOURNAMENT_LIST_UPCOMING, response.tournamentInfos);
 }
 
 export async function findOlderTournametList(req) {
     let endpoint = EndPoints.TOURNAMENT_LIST_OLDER;
     let request = req;
     let response = await postAction(endpoint, request);
-    Dispatch.dispatch(TmsActionTypes.TOURNAMENT_LIST_OLDER, response);
+    Dispatch.dispatch(TmsActionTypes.TOURNAMENT_LIST_OLDER, response.tournamentInfos);
 }
 export async function addPlayer(req) {
     let endpoint = EndPoints.PLAYER_ADD;

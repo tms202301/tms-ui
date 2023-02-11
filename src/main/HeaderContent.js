@@ -32,6 +32,7 @@ class HeaderContent extends Component {
         this.cancelSignAction = this.cancelSignAction.bind(this);
         this.closeSignPopup = this.closeSignPopup.bind(this);
         this.userSave = this.userSave.bind(this);
+        this.messageCloseAction = this.messageCloseAction.bind(this);
     }
     componentDidMount() {
         LoginStore.addChangeListener(this.postLoginAction);
@@ -86,6 +87,9 @@ class HeaderContent extends Component {
     userSave() {
         this.closeSignPopup();
     }
+    messageCloseAction() {
+        document.getElementById("message-div-id").style.display = "none";
+    }
     render() {
         let displayValue = this.state.showLoginPop ? "block" : "none";
         let signUpDisplay = this.state.showSignUp ? "block" : "none";
@@ -106,6 +110,12 @@ class HeaderContent extends Component {
                     <div className="login-popup_content" style={{display: signUpDisplay, width: "530px"}}>
                         <Signup ok={this.okSignAction} cancel={this.cancelSignAction} singUpAction={this.singUpAction}/>
                     </div>
+                </div>
+                <div className='message-popup_content' id="message-div-id">
+                    <div style={{float: "left", display: "none"}} id="message-success-icon-div"><span className="message-success-icon">&#x2714;</span></div>
+                    <div style={{float: "left", display: "none"}} id="message-error-icon-div"><span className="message-error-icon">&#x2718;</span></div>
+                    <div style={{float: "left", marginLeft: "5px"}} id="message-content-id"></div>
+                    <div className="message-close-icon" onClick={this.messageCloseAction}>x</div>
                 </div>
             </div>
         )
