@@ -15,6 +15,7 @@ class TmsLogin extends Component {
         this.paswordOnchangeFn = this.paswordOnchangeFn.bind(this);
         this.okAction = this.okAction.bind(this);
         this.singUpAction = this.singUpAction.bind(this);
+        this.cancelAction = this.cancelAction.bind(this);
     }
     userOnchangeFn(event) {
         this.setState({userName: event.target.value});
@@ -23,7 +24,13 @@ class TmsLogin extends Component {
         this.setState({password: event.target.value});
     }
     okAction() {
-        this.props.ok(this.state);
+        let data = this.state;
+        this.props.ok(data);
+        this.setState({userName: "", password: ""});
+    }
+    cancelAction() {
+        this.setState({userName: "", password: ""});
+        this.props.cancel();
     }
     singUpAction() {
         this.props.singUpAction();
@@ -37,7 +44,7 @@ class TmsLogin extends Component {
                 <Spacer align="right"/>
                 <Button id="login-submit-id" label="Login" align="right" type="primary" onClick={this.okAction}/>
                 <Spacer align="right"/>
-                <Button id="login-cancel-id" label="Cancel" align="right" type="secondary" onClick={this.props.cancel}/>
+                <Button id="login-cancel-id" label="Cancel" align="right" type="secondary" onClick={this.cancelAction}/>
             </div>
         )
     }

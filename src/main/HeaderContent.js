@@ -51,17 +51,17 @@ class HeaderContent extends Component {
     }
     postLoginAction() {
         let resData = LoginStore.getData();
-        this.setState({fullName: resData.firstName+" "+resData.lastName});
+        this.setState({fullName: resData.firstName+" "+resData.lastName, hideLogoutBtn: false, hideLoginBtn: true});
     }
     onLoginButtonClick(event) {
         this.setState({showLoginPop: !this.state.showLoginPop});
     }
     onLogoutButtonClick() {
+        sessionStorage.removeItem("loggedUser");
         this.setState({fullName: "", hideLogoutBtn: true, hideLoginBtn: false});
     }
     okAction(data) {
         ServiceCall.loginRequest(data);
-        this.setState({hideLogoutBtn: false, hideLoginBtn: true});
         this.closePopup();
     }
     cancelAction() {

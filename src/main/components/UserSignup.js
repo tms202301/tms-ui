@@ -6,6 +6,7 @@ import Button from './generic/TmsButton';
 import Spacer from './generic/TmsSpacer';
 import UserStore from '../../stores/UserStore';
 import * as SericeCall from '../controller/ServiceCall';
+import * as TmsUtils from '../utils/TmsUtils';
 
 const fName = "fName";
 const lName = "lName";
@@ -38,15 +39,16 @@ class UserSignup extends Component {
             emailError: "",
             dateOfBirthError: "",
             mobileNumberError: "",
-            panNumberError:""
+            panNumberError:"",
+            recordId: -1
         }
         this.changeTextField = this.changeTextField.bind(this);
         this.changeDateField = this.changeDateField.bind(this);
         this.onSaveAction = this.onSaveAction.bind(this);
         this.onCancelAction = this.onCancelAction.bind(this);
         this.resetErrorMessages = this.resetErrorMessages.bind(this);
+        this.resetFormData = this.resetFormData.bind(this);
     }
-    
     changeTextField(event, type) {
         let val = event.target.value;
         if(type === fName) {
@@ -83,37 +85,105 @@ class UserSignup extends Component {
             email: this.state.email,
             dateOfBirth: new Date(this.state.dateOfBirth).getTime(),
             mobileNumber: this.state.mobileNumber,
-            panNumber: this.state.panNumber
+            panNumber: this.state.panNumber,
+            recordId: this.state.recordId
         }
         if(!this.validateFormFields(request)) {
             SericeCall.addUser(request);
+            this.resetErrorMessages();
         }
     }
     onCancelAction() {
+        this.resetFormData();
         this.props.cancel();
+    }
+    resetFormData() {
+        this.setState({ userName: "",
+            password: "",
+            confirmPassword: "",
+            firstName: "",
+            lastName: "",
+            email: "",
+            dateOfBirth: "",
+            mobileNumber: "",
+            panNumber:"",
+            userNameError: "",
+            passwordError: "",
+            confirmPasswordError: "",
+            firstNameError: "",
+            lastNameError: "",
+            emailError: "",
+            dateOfBirthError: "",
+            mobileNumberError: "",
+            panNumberError:""});
     }
     validateFormFields(request) {
         this.resetErrorMessages();
         let res = false;
+        let charector50 = "Value should not be more than 50 charecters";
+        let charector15 = "Value should not be more than 15 charecters";
+        let emptyStr = "Value should not be empty";
         if(request.firstName === undefined || request.firstName === "") {
-            this.setState({firstNameError: "Value should not be empty"});
+            this.setState({firstNameError: emptyStr});
             res = true;
         } else if(request.firstName.length > 50) {
-            this.setState({firstNameError: "Value should not be more than 50 charecters"});
+            this.setState({firstNameError: charector50});
             res = true;
         }
         if(request.lastName === undefined || request.lastName === "") {
-            this.setState({lastNameError: "Value should not be empty"});
+            this.setState({lastNameError: emptyStr});
             res = true;
         } else if(request.lastName.length > 50) {
-            this.setState({lastNameError: "Value should not be more than 50 charecters"});
+            this.setState({lastNameError: charector50});
             res = true;
         }
         if(request.email === undefined || request.email === "") {
-            this.setState({lastNameError: "Value should not be empty"});
+            this.setState({emailError: emptyStr});
             res = true;
         } else if(request.email.length > 50) {
-            this.setState({emailError: "Value should not be more than 50 charecters"});
+            this.setState({emailError: charector50});
+            res = true;
+        } else if(!TmsUtils.validateEmail(request.email)) {
+            this.setState({emailError: "Invalid email id"});
+            res = true;
+        }
+        if(request.mobileNumber === undefined || request.mobileNumber === "") {
+            this.setState({mobileNumberError: emptyStr});
+            res = true;
+        } else if(request.mobileNumber.length > 50) {
+            this.setState({mobileNumberError: charector50});
+            res = true;
+        }
+        if(request.panNumber === undefined || request.panNumber === "") {
+            this.setState({panNumberError: emptyStr});
+            res = true;
+        } else if(request.panNumber.length > 15) {
+            this.setState({panNumberError: charector15});
+            res = true;
+        }
+        if(request.dateOfBirth === undefined || request.dateOfBirth === "" || isNaN(request.dateOfBirth)) {
+            this.setState({dateOfBirthError: emptyStr});
+            res = true;
+        }
+        if(request.userName === undefined || request.userName === "") {
+            this.setState({userNameError: emptyStr});
+            res = true;
+        } else if(request.userName.length > 50) {
+            this.setState({userNameError: charector50});
+            res = true;
+        }
+        if(request.password === undefined || request.password === "") {
+            this.setState({passwordError: emptyStr});
+            res = true;
+        } else if(request.password.length > 50) {
+            this.setState({passwordError: charector50});
+            res = true;
+        }
+        if(request.confirmPassword === undefined || request.confirmPassword === "") {
+            this.setState({confirmPasswordError: emptyStr});
+            res = true;
+        } else if(request.confirmPassword.length > 50) {
+            this.setState({confirmPasswordError: charector50});
             res = true;
         }
         return res;

@@ -3,6 +3,7 @@ import * as EndPoints from './EndPoints';
 import * as Dispatch from '../../TmsDispatcher';
 import TmsActionTypes from '../../actions/TmsActionTypes';
 import * as MessageUtils from '../utils/MessageUtils';
+import * as TmsUtils from '../utils/TmsUtils';
 
 async function postAction(endpoint, request) {
     // POST request using fetch with async/await
@@ -112,9 +113,15 @@ async function deleteAction(endpoint) {
 
 export async function loginRequest(req) {
     let endpoint = EndPoints.TMS_LOGIN;
-    let request = { userName: 'sreeni', userSec: "passwordf" };
+    let request = { userName: req.userName, userSec: req.password };
     let response = await postAction(endpoint, request);
-    Dispatch.dispatch(TmsActionTypes.LOGIN_ACTION, response);
+    if(response.status === "FAIL") {
+        MessageUtils.showErrorMessage(response.message);
+    } else {
+        MessageUtils.showSuccessMessage(response.message);
+        sessionStorage.setItem("loggedUser", req.userName);
+        Dispatch.dispatch(TmsActionTypes.LOGIN_ACTION, response);
+    }
 }
 
 export async function findTournametList(req) {
@@ -178,7 +185,13 @@ export async function addUser(req) {
     let endpoint = EndPoints.ADD_USER;
     let request = req;
     let response = await postAction(endpoint, request);
-    Dispatch.dispatch(TmsActionTypes.ADD_USER, response);
+    if(response.status === "SUCCESS") {
+        MessageUtils.showSuccessMessage(response.message);
+        Dispatch.dispatch(TmsActionTypes.ADD_USER, response);
+    } else if(response.status === "FAIL") {
+        MessageUtils.showErrorMessage(response.message);
+        TmsUtils.hideMask();
+    }
 }
 export async function getStates() {
     let endpoint = EndPoints.STATES_LIST;    

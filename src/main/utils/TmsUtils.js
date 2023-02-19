@@ -58,3 +58,10 @@ export function hideMask() {
 export function getStates(){
     let returnObj = ServiceCall.getStates();
 }
+export function validateEmail(value) {
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if(value.match(mailformat)) {
+        return true;
+    }
+    return false;
+}
